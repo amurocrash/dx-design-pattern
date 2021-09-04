@@ -14,6 +14,7 @@ const tempalte = require('./template')
 const iterator = require('./iterator')
 const command = require('./command')
 const respChain = require('./resp-chain')
+const middleware = require('./middleware')
 const { bad, withPattern1, withPattern2, validateExample } = require('./strategy')
 
 function basicTest () {
@@ -151,6 +152,10 @@ function respChainTest () {
   respChain.normal()
 }
 
+function middlewareTest () {
+  middleware.normal()
+}
+
 void function () {
-  respChainTest()
+  middlewareTest()
 }()
