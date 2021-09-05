@@ -1,5 +1,5 @@
-const { memorize, simpleCurrying, currying, unCurrying, isType, extending } = require('./basic')
-const { normal, common, commonES6, proxyES5, proxyES6 } = require('./singleton')
+const basic = require('./basic')
+const singleton = require('./singleton')
 const factory = require('./factory')
 const builder = require('./builder')
 const proxy = require('./proxy')
@@ -9,13 +9,14 @@ const decorator = require('./decorator')
 const composite = require('./composite')
 const bridge = require('./bridge')
 const observer = require('./observer')
+const strategy = require('./strategy')
 const state = require('./state')
 const tempalte = require('./template')
 const iterator = require('./iterator')
 const command = require('./command')
 const respChain = require('./resp-chain')
+const mediator = require('./mediator')
 const middleware = require('./middleware')
-const { bad, withPattern1, withPattern2, validateExample } = require('./strategy')
 
 function basicTest () {
   function memorizeTest () {
@@ -23,7 +24,7 @@ function basicTest () {
       return a + 1
     }
   
-    const addMem = memorize(add)
+    const addMem = basic.memorize(add)
   
     console.log(addMem(1))
     console.log(addMem(1))
@@ -37,7 +38,7 @@ function basicTest () {
     // const addCurrying1 = simpleCurrying(add, 1)
     // console.log(addCurrying1(2, 3))
 
-    const addCurrying = currying(add)
+    const addCurrying = basic.currying(add)
     // console.log(addCurrying(1, 2, 6))
     // console.log(addCurrying(2, 3)(10))
     console.log(addCurrying(1)(2)(3))
@@ -55,35 +56,35 @@ function basicTest () {
       name: 'welcome'
     }
 
-    const print = unCurrying(obj1.print)
+    const print = basic.unCurrying(obj1.print)
     print(obj2)
 
-    const push = unCurrying(Array.prototype.push)
+    const push = basic.unCurrying(Array.prototype.push)
     push(obj1, 1)
     console.log(obj1[0])
   }
 
   function isTypeTest () {
-    const isString = isType('String')
-    const isFunction = isType('Function')
+    const isString = basic.isType('String')
+    const isFunction = basic.isType('Function')
 
     console.log(isString('hello'))
     console.log(isFunction(isFunction))
   }
 
   function extendingTest () {
-    extending()
+    basic.extending()
   }
 
   extendingTest()
 }
 
 function singletonTest () {
-  // normal()
-  // common()
-  commonES6()
-  // proxyES5()
-  // proxyES6()
+  //singleton.normal()
+  // singleton.common()
+  singleton.commonES6()
+  // singleton.proxyES5()
+  // singleton.proxyES6()
 }
 
 function factoryTest () {
@@ -126,10 +127,10 @@ function observerTest () {
 }
 
 function strategyTest () {
-  bad()
-  withPattern1()
-  withPattern2()
-  validateExample()
+  strategy.bad()
+  strategy.withPattern1()
+  strategy.withPattern2()
+  strategy.validateExample()
 }
 
 function stateTest () {
@@ -152,10 +153,14 @@ function respChainTest () {
   respChain.normal()
 }
 
+function mediatorTest () {
+  mediator.normal()
+}
+
 function middlewareTest () {
   middleware.normal()
 }
 
 void function () {
-  middlewareTest()
+  mediatorTest()
 }()
